@@ -56,22 +56,20 @@ public class Task1 implements Task {
      */
     private String read(File file) throws IOException {
         
-        
-        String result ="";
-        byte[] buffer = new byte[512];
-        try(InputStream textIn = new FileInputStream(file);
-            ByteArrayOutputStream byteIn = new ByteArrayOutputStream(512)) {   
-            
+        String result = "";
+        byte[] buffer = new byte[16];
+        try (InputStream textIn = new FileInputStream(file);
+                ByteArrayOutputStream byteIn = new ByteArrayOutputStream(512)) {
+
             int length = 0;
-            while ((length = textIn.read(buffer))!= -1) {
-            byteIn.write(buffer, 0, length);
-            result = byteIn.toString();
+            while ((length = textIn.read(buffer)) != -1) {
+                byteIn.write(buffer, 0, length);
             }
-        
+            result = byteIn.toString();
         }
 //        
         
-       
+        
         return result;        
     }
 

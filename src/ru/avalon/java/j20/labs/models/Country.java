@@ -58,9 +58,15 @@ public class Country {
      * имеет неверный формат.
      */
     public static Country valueOf(String text) throws ParseException {
+        char[] chars = text.toCharArray();
+        int i = 0;
+        String[] split = new String[2];
+        split = text.split(":");
+        Country country = new Country(split[0], split[1]);
         /*
          * TODO(Студент): Реализовать метод valueOf класса Country
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return country;
+        //throw new UnsupportedOperationException("Not implemented yet!");
     }
 }
