@@ -3,8 +3,11 @@ package ru.avalon.java.j20.labs.tasks;
 import ru.avalon.java.j20.labs.Task;
 
 import java.io.File;
+import java.io.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * Задание №3
@@ -52,7 +55,15 @@ public class Task3 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private Collection<String> read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        try (FileReader fileRead = new FileReader(file);
+            BufferedReader bufRead = new BufferedReader(fileRead)) {
+            Collection<String> result = new LinkedList<>();
+            String line = null;
+            while ((line = bufRead.readLine()) != null) {
+                result.add(line+"\n");
+            }
+            return new ArrayList<String>(result); 
+        }
     }
 
     /**
@@ -66,6 +77,10 @@ public class Task3 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, Collection<String> collection) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        try (PrintWriter writeFile = new PrintWriter(file)) { 
+            for (String string: collection) {
+                writeFile.write(string);
+            }     
+        }
     }
 }

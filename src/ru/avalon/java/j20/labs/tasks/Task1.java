@@ -2,7 +2,7 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
-import java.io.File;
+import java.io.*;
 import java.io.IOException;
 
 /**
@@ -21,6 +21,7 @@ public class Task1 implements Task {
         File input = new File("assets/countries.txt");
         File output = new File("countries_binary_mode_output.txt");
         String text = read(input);
+        //System.out.println(text);
         write(output, text);
 
         /*
@@ -54,7 +55,22 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        
+        String result = "";
+        byte[] buffer = new byte[16];
+        try (InputStream textIn = new FileInputStream(file);
+                ByteArrayOutputStream byteIn = new ByteArrayOutputStream(512)) {
+
+            int length = 0;
+            while ((length = textIn.read(buffer)) != -1) {
+                byteIn.write(buffer, 0, length);
+            }
+            result = byteIn.toString();
+        }
+//        
+        
+        
+        return result;        
     }
 
     /**
@@ -66,6 +82,9 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, String text) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        try (OutputStream fileOut = new FileOutputStream(file)) {
+            fileOut.write(text.getBytes());
+        }
+        //throw new UnsupportedOperationException("Not implemented yet!");
     }
 }
